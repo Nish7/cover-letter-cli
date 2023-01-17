@@ -1,13 +1,12 @@
-const { google } = require('googleapis');
-const authorize = require('./lib/authorize');
-const fs = require('fs');
-const os = require('os');
-const prompts = require('prompts');
-const {
-	fields,
-	templateDocId,
-	driveDestinationFolderId,
-} = require('./lib/consts');
+import { google } from 'googleapis';
+import authorize from './lib/authorize.js';
+import terminalLink from 'terminal-link';
+import fs from 'fs';
+import os from 'os';
+import prompts from 'prompts';
+import consts from './lib/consts.js';
+
+const { fields, templateDocId, driveDestinationFolderId } = consts;
 
 async function genPDF(input) {
 	const auth = await authorize();
@@ -53,7 +52,7 @@ async function genPDF(input) {
 	// Export
 	const { data } = await drive.files.export(
 		{
-			fileId: driveResp.data.id,
+			fileId: tempData.id,
 			mimeType: 'application/pdf',
 		},
 		{ responseType: 'arraybuffer' }
@@ -65,7 +64,12 @@ async function genPDF(input) {
 		'base64'
 	);
 
-	console.log(fileName + ' Successfully Generated!');
+	const link = terminalLink(
+		fileName + ' Successfully Generated!',
+		`file:///Users/nish7/Downloads/CoverLetters/${fileName}.pdf`
+	);
+
+	console.log(link);
 }
 
 (async () => {

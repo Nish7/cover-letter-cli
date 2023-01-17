@@ -1,6 +1,6 @@
-const genDate = require('./genDate');
+import genDate from './genDate.js';
 
-module.exports = {
+const doc = {
 	templateDocId: '1YBaMSiWsOdvinTuNzPtpSZsRw7cXLx7R3ylWKRD7GpM',
 	driveDestinationFolderId: '18m0_mN-N4_yp0kI1oQ71ENl-Ajb8AW7l',
 	fields: [
@@ -52,3 +52,5 @@ module.exports = {
 		},
 	],
 };
+
+export default doc;

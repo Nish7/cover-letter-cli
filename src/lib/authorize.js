@@ -1,8 +1,9 @@
-const credentials = require('../credentials.json');
-const token = require('../token.json');
-const { google } = require('googleapis');
+import credentials from '../../credentials.json' assert { type: 'json' };
+import token from '../../token.json' assert { type: 'json' };
 
-module.exports = function authorize() {
+import { google } from 'googleapis';
+
+export default function authorize() {
 	const { client_secret, client_id, redirect_uris } = credentials.installed;
 
 	const oAuth2Client = new google.auth.OAuth2(
@@ -13,4 +14,4 @@ module.exports = function authorize() {
 
 	oAuth2Client.setCredentials({ refresh_token: token.refresh_token });
 	return oAuth2Client;
-};
+}
